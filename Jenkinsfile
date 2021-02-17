@@ -4,14 +4,6 @@ pipeline {
     maven 'maven'
   }
       stages {
-      stage ('Check-Git-Secrets') {
-   steps {
-    sh 'rm trufflehog || true'
-    sh 'docker run gesellix/trufflehog --json https://github.com/sindhuhack/testing.git > trufflehog'
-    sh 'cat trufflehog'
-    }
-}
-
     stage ('Build') {
       steps {
       sh 'mvn clean package'
@@ -20,8 +12,8 @@ pipeline {
     
     stage ('Deploy-To-Tomcat') {
            steps {
-          sshagent(['JRNTR']) {
-               sh 'scp -o StrictHostKeyChecking=no target/*.war ec2-user@3.234.189.32:/opt/apache-tomcat-8.5.56/webapps/webapp.war'
+          sshagent(['tomcat']) {
+               sh 'scp -o StrictHostKeyChecking=no target/*.war sindhu@172.20.10.2:/home/sindhu/prod/apache-tomcat-8.5.63/webapps/webapp.war'
              }      
           }       
    }

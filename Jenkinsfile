@@ -9,9 +9,7 @@ pipeline {
       sh 'mvn clean package'
        }
     }
-    email:
-    user
-    password
+  
      stage ('Deploy-To-Tomcat') {
            steps {
           sshagent(['tomcat']) {

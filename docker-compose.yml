@@ -1,7 +1,7 @@
 version: '2'
 services:
   snake:
-    image: 'sindhuhack/snake'
+    image: 'sindhuhack/testapp'
     environment:
       - "PORT:3000"
     ports:
